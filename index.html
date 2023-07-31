@@ -2,22 +2,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RangersProject - Official Smart Contract for the "Rangers" Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.5.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
-    <h1>RangersProject - Official Smart Contract for the "Rangers" Project</h1>
-    <p>This contract allows the assignment and retrieval of developer points, which represent shares in the "Rangers"
-        project.</p>
-    <p>The points reflect ownership stakes in 60% of the project, while the remaining 40% always belongs to the contract
-        owner.</p>
-    <a href="https://mumbai.polygonscan.com/address/0x9672E654838a88766dbc377517090fEc97D70DDe" target="_blank">View on
-        Polygonscan</a>
-    <div>
-        <div class="chart-container" style="position: relative; height:40vh; width:80vw">
-            <canvas id="chart"></canvas>
-        </div>
+    <div class="flex justify-center">
+        <div class="card max-w-xl bg-base-200 shadow-xl m-5">
+            <div class="card-body">
+                <h2 class="card-title text-3xl">RangersProject</h2>
+                <i>Official Smart Contract for the "Rangers" Project</i>
+                <p>This contract allows the assignment and retrieval of developer points, which represent shares in the
+                    "Rangers"
+                    project.</p>
+                <p>The points reflect ownership stakes in 60% of the project, while the remaining 40% always belongs to
+                    the
+                    contract
+                    owner.</p>
 
+                <div class="justify-center flex">
+                    <div class="chart-container" style="position: relative; height:40vh;">
+                        <canvas id="chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card-actions justify-end">
+                    <a class="btn btn-primary"
+                        href="https://mumbai.polygonscan.com/address/0x9672E654838a88766dbc377517090fEc97D70DDe"
+                        target="_blank">View on
+                        Polygonscan</a>
+                </div>
+            </div>
+        </div>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.0.3/web3.min.js"
         integrity="sha512-2oprd2T2vSkAii+dVWi6C+uATbQ1YGmCed6b6msb9Jxi33hsXAbnhwZ9thwCq6ndidZv4P51qaq58uo9b/x4nA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
