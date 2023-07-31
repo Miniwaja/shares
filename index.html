@@ -9,34 +9,151 @@
         <div class="chart-container" style="position: relative; height:40vh; width:80vw">
             <canvas id="chart"></canvas>
         </div>
-         
-    </div>
 
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.0.3/web3.min.js"
+        integrity="sha512-2oprd2T2vSkAii+dVWi6C+uATbQ1YGmCed6b6msb9Jxi33hsXAbnhwZ9thwCq6ndidZv4P51qaq58uo9b/x4nA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        const ctx = document.getElementById('chart');
+        const web3 = new Web3("https://rpc-mumbai.maticvigil.com");
 
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: [
-                    'Red',
-                    'Blue',
-                    'Yellow'
+        const contract = new web3.eth.Contract([
+            {
+                "inputs": [],
+                "stateMutability": "nonpayable",
+                "type": "constructor"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "address",
+                        "name": "developerAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "points",
+                        "type": "uint256"
+                    }
                 ],
-                datasets: [{
-                    label: 'My First Dataset',
-                    data: [300, 50, 100],
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)'
-                    ],
-                    hoverOffset: 4
-                }]
+                "name": "assignPoints",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "getAllDevelopers",
+                "outputs": [
+                    {
+                        "internalType": "string[]",
+                        "name": "",
+                        "type": "string[]"
+                    },
+                    {
+                        "internalType": "address[]",
+                        "name": "",
+                        "type": "address[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "",
+                        "type": "uint256[]"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "address",
+                        "name": "developerAddress",
+                        "type": "address"
+                    }
+                ],
+                "name": "getDeveloper",
+                "outputs": [
+                    {
+                        "internalType": "string",
+                        "name": "",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "getOwner",
+                "outputs": [
+                    {
+                        "internalType": "address",
+                        "name": "",
+                        "type": "address"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "getTotalPoints",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "address",
+                        "name": "developerAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    }
+                ],
+                "name": "setDeveloperName",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
             }
+        ], '0x9672E654838a88766dbc377517090fEc97D70DDe');
+
+        contract.methods.getAllDevelopers().call().then((r) => {
+            console.log(r[0])
+            const ctx = document.getElementById('chart');
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: r[0],
+                    datasets: [{
+                        label: 'Rangers Project Points',
+                        data: r[2].map((i) => parseInt(i)),
+                        hoverOffset: 4
+                    }]
+                }
+            });
         });
+        console.log(contract)
+
     </script>
 
 </body>
